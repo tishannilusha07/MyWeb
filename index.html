@@ -89,34 +89,34 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
   align-items:center; cursor:pointer; z-index:3;
 }
 
-/* Mobile-friendly adjustments */
+/* Mobile optimization */
 @media (max-width:480px){
-  html, body { min-height:100vh; overflow:auto; }
+  html, body { min-height:100vh; overflow:auto; font-size:14px; }
 
   #bgVideo { object-fit:cover; }
   .overlay { inset:0; }
 
-  .container { flex-direction:column; }
+  .container { flex-direction:column; justify-content:flex-start; padding:15px; }
 
-  .card {
-    padding:20px;
-    max-width:320px;
-    box-shadow:0 8px 30px rgba(2,6,23,0.5),0 0 15px rgba(124,58,237,0.3);
+  .card { padding:18px; max-width:300px; width:90%; box-shadow:0 6px 25px rgba(2,6,23,0.5),0 0 10px rgba(124,58,237,0.3); }
+
+  .avatar { width:90px; height:90px; margin-bottom:12px; }
+
+  h3 { font-size:17px; margin-bottom:4px; }
+  .role { font-size:12px; height:auto; margin-bottom:6px; }
+  .intro { font-size:13px; line-height:1.5; min-height:auto; white-space:pre-wrap; word-wrap:break-word; margin-bottom:10px; }
+
+  .social-buttons { gap:10px; flex-wrap:wrap; justify-content:center; }
+  .social-buttons a {
+    width:38px; height:38px; font-size:16px; opacity:0; transform: translateY(8px) scale(0.9); animation: slideIn 0.5s forwards;
   }
-
-  .avatar { width:100px; height:100px; }
-  h3 { font-size:18px; }
-  .role { font-size:13px; height:18px; }
-  .intro { font-size:13px; line-height:1.4; min-height:auto; white-space: pre-wrap; word-wrap: break-word; }
-  .social-buttons { gap:10px; flex-wrap:wrap; }
-  .social-buttons a { width:36px; height:36px; font-size:16px; opacity:0; transform: translateY(10px) scale(0.9); animation: slideIn 0.5s forwards; }
   .social-buttons a:nth-child(1){ animation-delay:0.1s; }
   .social-buttons a:nth-child(2){ animation-delay:0.2s; }
   .social-buttons a:nth-child(3){ animation-delay:0.3s; }
   .social-buttons a:nth-child(4){ animation-delay:0.4s; }
 
-  .theme-toggle { width:36px; height:36px; top:12px; right:12px; }
-  footer { font-size:11px; }
+  .theme-toggle { width:34px; height:34px; top:10px; right:10px; }
+  footer { font-size:11px; margin-top:12px; }
 
   @keyframes slideIn { to { opacity:1; transform: translateY(0) scale(1); } }
 }
