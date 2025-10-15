@@ -89,7 +89,7 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
   align-items:center; cursor:pointer; z-index:3;
 }
 
-/* Mobile optimization with card lower on screen */
+/* Mobile optimization: card slightly lower on screen */
 @media (max-width:480px){
   html, body { min-height:100vh; overflow:auto; font-size:14px; }
 
@@ -101,7 +101,8 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
     justify-content:flex-start; 
     align-items:center; 
     padding:15px; 
-    padding-top:150px; /* Move card lower */
+    padding-top:60vh; /* roughly center + lower */
+    transform: translateY(-50px); /* tweak for visual balance */
   }
 
   .card { 
