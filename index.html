@@ -89,16 +89,27 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
   align-items:center; cursor:pointer; z-index:3;
 }
 
-/* Mobile optimization */
+/* Mobile optimization with card lower on screen */
 @media (max-width:480px){
   html, body { min-height:100vh; overflow:auto; font-size:14px; }
 
   #bgVideo { object-fit:cover; }
   .overlay { inset:0; }
 
-  .container { flex-direction:column; justify-content:flex-start; padding:15px; }
+  .container { 
+    flex-direction:column; 
+    justify-content:flex-start; 
+    align-items:center; 
+    padding:15px; 
+    padding-top:150px; /* Move card lower */
+  }
 
-  .card { padding:18px; max-width:300px; width:90%; box-shadow:0 6px 25px rgba(2,6,23,0.5),0 0 10px rgba(124,58,237,0.3); }
+  .card { 
+    padding:18px; 
+    max-width:300px; 
+    width:90%; 
+    box-shadow:0 6px 25px rgba(2,6,23,0.5),0 0 10px rgba(124,58,237,0.3); 
+  }
 
   .avatar { width:90px; height:90px; margin-bottom:12px; }
 
