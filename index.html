@@ -38,18 +38,39 @@ html, body {
 
 .container { display:flex; justify-content:center; align-items:center; min-height:100vh; padding:20px; position:relative; z-index:2; }
 
+/* === CARD EFFECT COMBINATION === */
 .card {
-  background:var(--card);
-  padding:28px;
-  border-radius:14px;
-  text-align:center;
-  width:100%;
-  max-width:400px;
+  background: var(--card);
+  padding: 28px;
+  border-radius: 14px;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
   position: relative;
   overflow: hidden;
-  box-shadow:0 10px 40px rgba(2,6,23,0.6),0 0 20px rgba(124,58,237,0.4);
-  backdrop-filter:blur(6px);
-  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 rgba(124, 58, 237, 0);
+  transform: translateY(50px) scale(0.9) rotateX(8deg);
+  opacity: 0;
+  animation: cardEntry 1.5s ease-out forwards;
+}
+
+@keyframes cardEntry {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9) rotateX(8deg);
+    box-shadow: 0 0 0 rgba(124, 58, 237, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-5px) scale(1.02) rotateX(0deg);
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotateX(0);
+    box-shadow: 0 10px 40px rgba(2,6,23,0.6), 0 0 20px rgba(124,58,237,0.4);
+  }
 }
 
 /* Animated glowing background inside card */
@@ -63,6 +84,7 @@ html, body {
   z-index: 0;
   filter: blur(8px) brightness(1.3);
 }
+
 @keyframes bgMove {
   0% { transform: scale(1) translate(0,0); }
   50% { transform: scale(1.1) translate(-10px, 10px); }
@@ -71,21 +93,62 @@ html, body {
 
 .card * { position: relative; z-index: 2; }
 
+/* === AVATAR ANIMATION === */
 .avatar {
-  width:140px; height:140px; margin:0 auto 14px; border-radius:14px; overflow:hidden;
-  background:linear-gradient(135deg,#0ea5a5,#6366f1);
-  animation: pulse 2s infinite;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 14px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0ea5a5, #6366f1);
+  transform: rotateY(90deg) scale(0.8);
+  opacity: 0;
+  animation: avatarIn 1s 0.6s ease-out forwards, pulse 2s infinite 2s;
 }
-.avatar:hover { transform: rotateY(15deg) rotateX(10deg) scale(1.05); box-shadow:0 0 40px rgba(124,58,237,0.9); }
-@keyframes pulse { 0%,100%{ box-shadow:0 0 15px rgba(124,58,237,0.4); transform:scale(1);} 50%{ box-shadow:0 0 30px rgba(124,58,237,0.8); transform:scale(1.05);} }
+
+@keyframes avatarIn {
+  0% {
+    opacity: 0;
+    transform: rotateY(90deg) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(0deg) scale(1);
+  }
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 15px rgba(124,58,237,0.4); transform: scale(1); }
+  50% { box-shadow: 0 0 30px rgba(124,58,237,0.8); transform: scale(1.05); }
+}
+
 .avatar img { width:100%; height:100%; object-fit:cover; }
 
+/* === TEXT FADE-UP SEQUENCE === */
+h3, .role, .intro, .social-buttons, footer {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease-out forwards;
+}
+h3 { animation-delay: 1.2s; }
+.role { animation-delay: 1.4s; }
+.intro { animation-delay: 1.6s; }
+.social-buttons { animation-delay: 1.8s; }
+footer { animation-delay: 2s; }
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === TEXT STYLING === */
 h3 { margin:6px 0; font-size:20px; }
 .role { font-size:14px; color:var(--muted); height:20px; margin-bottom:10px; }
 .intro { font-size:14px; color:var(--muted); line-height:1.5; margin-bottom:14px; min-height:60px; }
 
-.social-buttons { display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:12px; }
+/* === SOCIAL ICONS === */
+.social-buttons {
+  display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:12px;
+}
 .social-buttons a {
   width:40px; height:40px; display:flex; justify-content:center; align-items:center;
   border-radius:50%; background:var(--glass); color:var(--text); font-size:18px; text-decoration:none;
@@ -100,7 +163,14 @@ h3 { margin:6px 0; font-size:20px; }
 
 footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted); }
 
-/* Mobile optimization */
+/* === CARD HOVER === */
+.card:hover {
+  box-shadow: 0 0 40px rgba(124,58,237,0.7), 0 0 80px rgba(124,58,237,0.4);
+  transform: translateY(-5px) scale(1.02);
+  transition: all 0.3s ease;
+}
+
+/* === MOBILE RESPONSIVE === */
 @media (max-width:480px){
   html, body { min-height:100vh; overflow:auto; font-size:14px; }
   .container { padding-top:150px; }
@@ -115,28 +185,31 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
 </style>
 </head>
 <body>
+
+<!-- Background Music -->
 <audio id="bg-music" src="sound.mp3" preload="auto" loop></audio>
 
 <script>
-  const audio = document.getElementById("bg-music");
-
-  // Safari/Chrome autoplay fix — waits for user interaction
-  window.addEventListener("click", () => {
-    if (audio.paused) {
-      audio.volume = 0.5;
-      audio.play().catch(err => console.log("Audio blocked:", err));
-    }
+const audio = document.getElementById("bg-music");
+window.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.volume = 0;
+    const fadeIn = setInterval(() => {
+      if (audio.volume < 0.5) audio.volume += 0.02;
+      else clearInterval(fadeIn);
+    }, 200);
+    audio.play().catch(err => console.log("Audio blocked:", err));
+  }
+});
+window.addEventListener("load", () => {
+  audio.play().catch(() => {
+    console.log("Autoplay blocked until user interaction");
   });
-
-  // Optional: Try to start on load (may be blocked)
-  window.addEventListener("load", () => {
-    audio.play().catch(() => {
-      console.log("Autoplay blocked until user interaction");
-    });
-  });
+});
 </script>
 
-<video id="bgVideo" autoplay loop muted>
+<!-- Background Video -->
+<video id="bgVideo" autoplay loop muted playsinline preload="auto">
   <source src="cyber_tech_loop.mp4" type="video/mp4">
 </video>
 
@@ -150,12 +223,14 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
     <h3>Tishan Nilusha</h3>
     <div class="role"><span id="typedRole"></span></div>
     <p class="intro" id="typedIntro"></p>
+
     <div class="social-buttons">
-      <a href="https://github.com/tishannilusha07" target="_blank"><i class="fab fa-github"></i></a>
-      <a href="https://linkedin.com/in/tishan-nilusha-94655138a" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="mailto:tishannilusha@gmail.com"><i class="fas fa-envelope"></i></a>
-      <a href="https://x.com/tishannilusha07" target="_blank"><i class="fab fa-x-twitter"></i></a>
+      <a href="https://github.com/tishannilusha07" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/tishan-nilusha-94655138a" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:tishannilusha@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      <a href="https://x.com/tishannilusha07" target="_blank" aria-label="X Twitter"><i class="fab fa-x-twitter"></i></a>
     </div>
+
     <footer>© <span id="year"></span> TISHAN NILUSHA — Built with HTML & CSS</footer>
   </div>
 </div>
@@ -163,18 +238,48 @@ footer { text-align:center; margin-top:16px; font-size:12px; color:var(--muted);
 <script>
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Typed Intro
-const introText = "Hi, I’m Tishan Nilusha, a student Cyber Security.  I passionate about understanding systems, securing digital environments, and creating efficient, practical solutions.I thrive on transforming curiosity into impactful projects and continuous growth.";
-let i=0; const typedIntro=document.getElementById('typedIntro');
-function typeWriter(){ if(i<introText.length){ typedIntro.innerHTML+=introText.charAt(i); i++; setTimeout(typeWriter,30); } }
-typeWriter();
+// Typed intro text — starts slightly after animations
+const introText = "Hi, I’m Tishan Nilusha, a Cyber Security student passionate about understanding systems, securing digital environments, and creating efficient, practical solutions. I thrive on transforming curiosity into impactful projects and continuous growth.";
 
-// Hacker Roles
-const roles=["Security","Networking","Coding"];
-let roleIndex=0;
-const typedRole=document.getElementById('typedRole');
-function shuffleText(text){ const chars="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@"; return text.split("").map(c=>(c===" "? " " : chars[Math.floor(Math.random()*chars.length)])).join(""); }
-function animateRole(){ let steps=0; const role=roles[roleIndex]; const interval=setInterval(()=>{ typedRole.textContent=shuffleText(role); steps++; if(steps>10){ typedRole.textContent=role; clearInterval(interval); roleIndex=(roleIndex+1)%roles.length; setTimeout(animateRole,1500);} },80); }
+let i = 0;
+const typedIntro = document.getElementById('typedIntro');
+
+function typeWriter() {
+  if (i < introText.length) {
+    typedIntro.innerHTML += introText.charAt(i);
+    i++;
+    setTimeout(typeWriter, 30);
+  }
+}
+
+// delay typing so card + avatar animations finish first
+setTimeout(typeWriter, 1600);
+
+// Hacker-style role shuffle
+const roles = ["Security", "Networking", "Coding"];
+let roleIndex = 0;
+const typedRole = document.getElementById('typedRole');
+
+function shuffleText(text) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#$%&@";
+  return text.split("").map(c => (c === " " ? " " : chars[Math.floor(Math.random() * chars.length)])).join("");
+}
+
+function animateRole() {
+  let steps = 0;
+  const role = roles[roleIndex];
+  const interval = setInterval(() => {
+    typedRole.textContent = shuffleText(role);
+    steps++;
+    if (steps > 10) {
+      typedRole.textContent = role;
+      clearInterval(interval);
+      roleIndex = (roleIndex + 1) % roles.length;
+      setTimeout(animateRole, 1500);
+    }
+  }, 80);
+}
+
 animateRole();
 </script>
 </body>
